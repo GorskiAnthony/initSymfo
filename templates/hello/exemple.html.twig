@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}Exemple d'onglet!{% endblock %}
+
+{#
+    {%  %} -> exécuter 
+    {{  }} -> rendu
+    {#  ♯} -> commentaire
+    { .. | .. } -> modifier
+#}
+
+{% block body %}
+
+{{ title | upper }}
+
+<ul>
+    {% for index in array %}
+        <li>{{ index }}</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
