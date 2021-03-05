@@ -1,5 +1,5 @@
-index:
-    # ici (path) je déclare ma route
-    path: /hello
-    # Ici, notre controller se trouve dans App/Controller/HelloController et on appel la méthode hello
-    controller: App\Controller\HelloController::hello
+# index:
+#     # ici (path) je déclare ma route
+#     path: /hello
+#     # Ici, notre controller se trouve dans App/Controller/HelloController et on appel la méthode hello
+#     controller: App\Controller\HelloController::hello
