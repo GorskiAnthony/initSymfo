@@ -2,8 +2,10 @@
 // namespace
 namespace App\Controller;
 
-// J'importe ce dont j'ai besoin
 use App\Entity\User;
+//j'import mon form user
+use App\Form\UserType;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,25 +28,42 @@ class UserController extends AbstractController {
         // Je créer une variable "form" dans lequel ily aura notre formulaire.
         // createFormBuilder vient AbstractController et s'occupe de notre formulaire
         // Dans le form, on lui passe l'instance de $user.
-        $form = $this->createFormBuilder($user)
-            // J'ajoute les champs avec la méthode 'add'
-            ->add('name', TextType::class)
-            ->add('email', EmailType::class)
-            ->add("save", SubmitType::class)
-            ->getForm();
+        /**         
+         * 1er façon de faire avec le form dans le controller !== pas recommandé 
+         * 
+        */
+        // $form = $this->createFormBuilder($user)
+        //     // J'ajoute les champs avec la méthode 'add'
+        //     ->add('name', TextType::class)
+        //     ->add('email', EmailType::class)
+        //     ->add("save", SubmitType::class)
+        //     ->getForm();
 
+        /**
+         * 2eme façon de faire en utilisant le fichier UserType.php
+         */
+
+         $form = $this->createForm(UserType::class, $user);
 
         /** La gestion du form */
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $userInfo = $form->getData();
+
+            // Je récupère l'entityManager avec la commande suivante 
+            $entityManager = $this->getDoctrine()->getManager();
+
+            // Je prepare les datas pour les persister en BDD
+            $entityManager->persist($userInfo);
+
+            // On pousse nos info en BDD
+            $entityManager->flush();
+
            return new Response("Le formulaire a bien été soumis et validé !");
         }
-       
 
         /** Fin de la gestion du form */
-
-
         return $this->render("form/form.html.twig", [
             'form' => $form->createView()
         ]);

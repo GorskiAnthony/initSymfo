@@ -1,3 +1,7 @@
 .box-img {
 	box-shadow: 0px 0px 14px #00000078;
 }
+
+.hidden-row {
+	display: hidden;
+}

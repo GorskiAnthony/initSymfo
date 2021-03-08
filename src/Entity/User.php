@@ -1,45 +1,75 @@
 <?php
 
-// namespace
 namespace App\Entity;
 
-class User {
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ */
+class User
+{
     /**
-     * 2 propriétés
-     * - nom => $name
-     * - email => $email
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
+    private $id;
 
     /**
-     * PUBLIC : Accessible de partout
-    * PROTECTED : Accessible à l'intérieur de la classe mère et les classes filles
-    * PRIVATE : Accessible que dans la classe.
-    */
-
-    /**
-     * Ici, nous allons déclarers en PROTECTED nos variables et ajouter des getter/setter pour accèder à nos propriétés.
+     * @ORM\Column(type="string", length=50)
      */
+    private $name;
 
-    protected $name;
-    protected $email;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
-    // Getter du name qui retourne le name.
-    public function getName() {
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
         return $this->name;
     }
 
-    // Setter du name, on indique que la variable name = $name passé en paramètre
-    public function setName($name) {
+    public function setName(string $name): self
+    {
         $this->name = $name;
+
+        return $this;
     }
-    
-    // Getter de l'email qui retourne l'email.
-    public function getEmail(){
+
+    public function getEmail(): ?string
+    {
         return $this->email;
     }
 
-    //Setter de l'email
-    public function setEmail($email){
+    public function setEmail(string $email): self
+    {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 }
